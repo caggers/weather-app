@@ -2,6 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
+
+// Redux Promise is middleware that looks out for actions that have payloads which are promises
+// it unwraps the promise, waits for it to be fulfilled and thenissues a new action
 import ReduxPromise from 'redux-promise';
 
 import App from './components/app';

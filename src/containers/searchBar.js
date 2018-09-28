@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { fetchWeather } from '../actions/index';
 
-export default class SearchBar extends Component {
+
+class SearchBar extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { term: ''};
+    this.state = { term: '' };
   }
 
   onInputChange = (e) => {
@@ -16,6 +20,12 @@ export default class SearchBar extends Component {
 
   onFormSubmit = (e) => {
     e.preventDefault();
+
+    // Fetch weather Data
+    this.props.fetchWeather(this.state.term);
+    this.setState({
+      term: ''
+    });
   }
 
   render() {
@@ -31,3 +41,10 @@ export default class SearchBar extends Component {
     )
   }
 }
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ fetchWeather }, dispatch);
+}
+
+// Use null when the container doesn't care about the state at all
+export default connect(null, mapDispatchToProps)(SearchBar);
